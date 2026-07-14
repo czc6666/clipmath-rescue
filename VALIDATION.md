@@ -34,3 +34,12 @@
 4. 可从原问题现场回复或仓库 Issue 读回。
 
 只有访问、Star、Fork、拖入书签栏或“看起来不错”均不算。
+
+## 单渠道发布记录
+
+- 发布时间：2026-07-14T15:35:14Z
+- 唯一现场：<https://github.com/obsidianmd/obsidian-clipper/issues/461#issuecomment-4971014242>
+- 发布账号：`czc6666`（Owner）
+- 发布范围：仅该 Issue 一次回复；未发其他 Issue、Reddit、X、商店或私信。
+- 发布后即时读回：评论存在；产品仓 Issue 数为 0。
+- 当前 E4/E5：0 / 0。Owner 的 210 公式 E2E 仍全部扣除。
