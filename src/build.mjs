@@ -28,6 +28,11 @@ export function buildPage() {
       <h2 id="use-title">2. 在含公式文章中使用</h2>
       <ol><li>打开要保存的微信公众号文章。</li><li>点击书签栏里的“抢救本页公式”。</li><li>看到“已转换 N 个公式”后，再点击原来的网页剪藏器。</li></ol>
     </section>
+    <section class="card" aria-labelledby="sample-title">
+      <h2 id="sample-title">没有现成文章？先用原问题样本验证</h2>
+      <p><a class="secondary" href="https://mp.weixin.qq.com/s/fd0piUuEOtSYpjVws_b0fA" rel="noreferrer">打开公开测试文章</a></p>
+      <p class="hint">在该文章运行后，预期识别 210 个公式。完成剪藏后只需回传转换数量和公式是否正常，不要粘贴正文。</p>
+    </section>
     <section class="notice" aria-labelledby="boundary-title">
       <h2 id="boundary-title">边界与回退</h2>
       <ul><li>只处理当前页明确标记的 <code>data-formula</code> 公式，不读取 Cookie、Token、浏览历史。</li><li>不上传页面正文、标题、URL 或公式内容；本页也不含遥测脚本。</li><li>发现未知公式结构会安全停止，不部分修改页面。</li><li>刷新页面即可撤销；网站结构变化时可能失效。</li></ul>
