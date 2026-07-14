@@ -1,0 +1,14 @@
+{
+  "name": "clipmath-rescue",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "test": "node --test",
+    "check": "node --check src/patcher.mjs && node --check src/bookmarklet.mjs && node --check src/build.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  }
+}

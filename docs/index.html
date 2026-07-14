@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="在点击原网页剪藏器前，把微信公众号页面中的 SVG 数学公式恢复成 Markdown LaTeX。只处理当前页面，不上传正文。">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>ClipMath Rescue｜剪藏前抢救网页公式</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <p class="eyebrow">免费 Bookmarklet · 无需安装扩展</p>
+    <h1>剪藏前，先把网页公式抢救回来</h1>
+    <p class="lead">适用于带 <code>data-formula</code> 的微信公众号数学文章。点击一次，把 SVG 公式改成 Markdown LaTeX，再继续用你原来的 Obsidian Web Clipper。</p>
+    <section class="card" aria-labelledby="install-title">
+      <h2 id="install-title">1. 把按钮拖到书签栏</h2>
+      <a id="bookmarklet" class="bookmarklet" href="javascript:(function%20bookmarkletProgram()%20%7B%0A%20%20const%20supportedTypes%20%3D%20new%20Set(%5B'inline-equation'%2C%20'block-equation'%5D)%3B%0A%20%20const%20candidates%20%3D%20%5B...document.querySelectorAll('%5Bdata-formula%5D')%5D%3B%0A%20%20const%20showReceipt%20%3D%20(message%2C%20ok)%20%3D%3E%20%7B%0A%20%20%20%20const%20old%20%3D%20document.getElementById('clipmath-rescue-receipt')%3B%0A%20%20%20%20if%20(old)%20old.remove()%3B%0A%20%20%20%20const%20box%20%3D%20document.createElement('div')%3B%0A%20%20%20%20box.id%20%3D%20'clipmath-rescue-receipt'%3B%0A%20%20%20%20box.setAttribute('role'%2C%20'status')%3B%0A%20%20%20%20box.style.cssText%20%3D%20%5B%0A%20%20%20%20%20%20'position%3Afixed'%2C%20'z-index%3A2147483647'%2C%20'right%3A16px'%2C%20'bottom%3A16px'%2C%0A%20%20%20%20%20%20'max-width%3A360px'%2C%20'padding%3A12px%2014px'%2C%20'border-radius%3A10px'%2C%0A%20%20%20%20%20%20'font%3A14px%2F1.45%20system-ui%2Csans-serif'%2C%20'color%3A%23fff'%2C%0A%20%20%20%20%20%20%60background%3A%24%7Bok%20%3F%20'%23166534'%20%3A%20'%23991b1b'%7D%60%2C%20'box-shadow%3A0%208px%2030px%20%230005'%0A%20%20%20%20%5D.join('%3B')%3B%0A%20%20%20%20box.textContent%20%3D%20message%3B%0A%20%20%20%20document.body.appendChild(box)%3B%0A%20%20%20%20setTimeout(()%20%3D%3E%20box.remove()%2C%208000)%3B%0A%20%20%7D%3B%0A%0A%20%20if%20(candidates.length%20%3D%3D%3D%200)%20%7B%0A%20%20%20%20showReceipt('ClipMath%20Rescue%EF%BC%9A%E6%9C%AA%E5%8F%91%E7%8E%B0%E5%8F%AF%E8%AF%86%E5%88%AB%E5%85%AC%E5%BC%8F%EF%BC%8C%E9%A1%B5%E9%9D%A2%E6%B2%A1%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%82'%2C%20false)%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(candidates.every((element)%20%3D%3E%20element.getAttribute('data-clipmath-rescued')%20%3D%3D%3D%20'true'))%20%7B%0A%20%20%20%20showReceipt('ClipMath%20Rescue%EF%BC%9A%E6%9C%AC%E9%A1%B5%E5%85%AC%E5%BC%8F%E5%B7%B2%E7%BB%8F%E5%A4%84%E7%90%86%E8%BF%87%E3%80%82%E5%88%B7%E6%96%B0%E9%A1%B5%E9%9D%A2%E5%8F%AF%E6%81%A2%E5%A4%8D%E5%8E%9F%E7%8A%B6%E3%80%82'%2C%20false)%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%0A%20%20const%20pending%20%3D%20%5B%5D%3B%0A%20%20for%20(const%20element%20of%20candidates)%20%7B%0A%20%20%20%20const%20formula%20%3D%20element.getAttribute('data-formula')%20%3F%3F%20''%3B%0A%20%20%20%20const%20type%20%3D%20element.getAttribute('data-formula-type')%20%3F%3F%20''%3B%0A%20%20%20%20if%20(!supportedTypes.has(type)%20%7C%7C%20formula.trim()%20%3D%3D%3D%20''%20%7C%7C%20formula.length%20%3E%2020000)%20%7B%0A%20%20%20%20%20%20showReceipt('ClipMath%20Rescue%EF%BC%9A%E5%8F%91%E7%8E%B0%E4%B8%8D%E6%94%AF%E6%8C%81%E7%9A%84%E5%85%AC%E5%BC%8F%E7%BB%93%E6%9E%84%EF%BC%8C%E5%B7%B2%E5%AE%89%E5%85%A8%E5%81%9C%E6%AD%A2%EF%BC%8C%E9%A1%B5%E9%9D%A2%E6%B2%A1%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%82'%2C%20false)%3B%0A%20%20%20%20%20%20return%3B%0A%20%20%20%20%7D%0A%20%20%20%20pending.push(%7B%20element%2C%20formula%2C%20block%3A%20type%20%3D%3D%3D%20'block-equation'%20%7D)%3B%0A%20%20%7D%0A%0A%20%20for%20(const%20item%20of%20pending)%20%7B%0A%20%20%20%20item.element.textContent%20%3D%20item.block%0A%20%20%20%20%20%20%3F%20%60%5Cn%24%24%5Cn%24%7Bitem.formula%7D%5Cn%24%24%5Cn%60%0A%20%20%20%20%20%20%3A%20%60%24%24%7Bitem.formula%7D%24%60%3B%0A%20%20%20%20item.element.setAttribute('data-clipmath-rescued'%2C%20'true')%3B%0A%20%20%7D%0A%20%20showReceipt(%60ClipMath%20Rescue%EF%BC%9A%E5%B7%B2%E8%BD%AC%E6%8D%A2%20%24%7Bpending.length%7D%20%E4%B8%AA%E5%85%AC%E5%BC%8F%E3%80%82%E7%8E%B0%E5%9C%A8%E8%AF%B7%E7%BB%A7%E7%BB%AD%E7%82%B9%E5%87%BB%E5%8E%9F%E6%9D%A5%E7%9A%84%E7%BD%91%E9%A1%B5%E5%89%AA%E8%97%8F%E5%99%A8%E3%80%82%E5%88%B7%E6%96%B0%E9%A1%B5%E9%9D%A2%E5%8F%AF%E6%92%A4%E9%94%80%E3%80%82%60%2C%20true)%3B%0A%7D)()">抢救本页公式</a>
+      <p class="hint">手机或无法拖拽？右键复制链接地址，新建书签后粘贴到网址栏。</p>
+    </section>
+    <section class="steps" aria-labelledby="use-title">
+      <h2 id="use-title">2. 在含公式文章中使用</h2>
+      <ol><li>打开要保存的微信公众号文章。</li><li>点击书签栏里的“抢救本页公式”。</li><li>看到“已转换 N 个公式”后，再点击原来的网页剪藏器。</li></ol>
+    </section>
+    <section class="notice" aria-labelledby="boundary-title">
+      <h2 id="boundary-title">边界与回退</h2>
+      <ul><li>只处理当前页明确标记的 <code>data-formula</code> 公式，不读取 Cookie、Token、浏览历史。</li><li>不上传页面正文、标题、URL 或公式内容；本页也不含遥测脚本。</li><li>发现未知公式结构会安全停止，不部分修改页面。</li><li>刷新页面即可撤销；网站结构变化时可能失效。</li></ul>
+    </section>
+    <section class="feedback" aria-labelledby="feedback-title">
+      <h2 id="feedback-title">请回传一条脱敏结果</h2>
+      <p>完成核心流程后，请只告诉我：转换数量、剪藏后公式是否正常、使用的剪藏器。不要贴文章正文或私人链接。</p>
+      <a class="secondary" href="https://github.com/czc6666/clipmath-rescue/issues/new?template=core-flow.yml">提交脱敏结果（需要 GitHub 登录）</a>
+    </section>
+    <p class="source">独立实验性工具，不隶属于微信或 Obsidian。<a href="https://github.com/czc6666/clipmath-rescue">查看源码</a></p>
+  </main>
+</body>
+</html>
